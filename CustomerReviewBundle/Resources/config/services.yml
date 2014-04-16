@@ -1,0 +1,7 @@
+parameters:
+#    gamma_customer_review.example.class: Gamma\CustomerReview\CustomerReviewBundle\Example
+
+services:
+#    gamma_customer_review.example:
+#        class: %gamma_customer_review.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

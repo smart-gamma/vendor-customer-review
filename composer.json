@@ -1,0 +1,19 @@
+{
+    "name": "gamma/customerreview",
+    "description": "Shop reviews",
+    "type": "symfony-bundle",
+    "version": "master",
+    "require": {
+        "php": ">=5.3"
+    },
+    "authors": [
+        {
+            "name": "Evgeniy Kuzmin",
+            "email": "jekccs@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "Gamma\\CustomerReview": "" }
+    },
+    "target-dir": "Gamma/CustomerReview"
+}

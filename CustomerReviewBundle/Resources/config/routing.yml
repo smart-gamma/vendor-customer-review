@@ -1,0 +1,3 @@
+gamma_customer_review_homepage:
+    pattern:  /hello/{name}
+    defaults: { _controller: GammaCustomerReviewBundle:Default:index }
