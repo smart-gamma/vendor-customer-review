@@ -4,14 +4,15 @@ namespace Gamma\CustomerReview\CustomerReviewBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use \Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface;
 
 /**
+ * @ORM\Entity()
  * @ORM\Table(name="customer_review", indexes={
- * @ORM\Index(name="search_idx", columns={"product", "enabled"}),
  * @ORM\Index(name="sort_idx", columns={"date"})
  * })
  */
-class Gallery
+class CustomerReview
 {
     /**
      * ID of the Gallery
@@ -84,7 +85,7 @@ class Gallery
     /**
      * Product
      *
-     * @ORM\ManyToOne(targetEntity="LaMelle\ProductBundle\Entity\Product")
+     * @ORM\ManyToOne(targetEntity="Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface")
      */
     private $product;
 
@@ -99,4 +100,189 @@ class Gallery
         return $this->id;
     }
 
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     * @return CustomerReview
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+    
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return CustomerReview
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+    
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set customerName
+     *
+     * @param string $customerName
+     * @return CustomerReview
+     */
+    public function setCustomerName($customerName)
+    {
+        $this->customerName = $customerName;
+    
+        return $this;
+    }
+
+    /**
+     * Get customerName
+     *
+     * @return string 
+     */
+    public function getCustomerName()
+    {
+        return $this->customerName;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return CustomerReview
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+    
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     * @return CustomerReview
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+    
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string 
+     */
+    public function getComment()
+    {
+        return $this->comment;
+    }
+
+    /**
+     * Set reply
+     *
+     * @param string $reply
+     * @return CustomerReview
+     */
+    public function setReply($reply)
+    {
+        $this->reply = $reply;
+    
+        return $this;
+    }
+
+    /**
+     * Get reply
+     *
+     * @return string 
+     */
+    public function getReply()
+    {
+        return $this->reply;
+    }
+
+    /**
+     * Set enabled
+     *
+     * @param boolean $enabled
+     * @return CustomerReview
+     */
+    public function setEnabled($enabled)
+    {
+        $this->enabled = $enabled;
+    
+        return $this;
+    }
+
+    /**
+     * Get enabled
+     *
+     * @return boolean 
+     */
+    public function getEnabled()
+    {
+        return $this->enabled;
+    }
+
+
+    /**
+     * Set product
+     *
+     * @param \Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface $product
+     * @return CustomerReview
+     */
+    public function setProduct(\Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface $product = null)
+    {
+        $this->product = $product;
+    
+        return $this;
+    }
+
+    /**
+     * Get product
+     *
+     * @return \Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface 
+     */
+    public function getProduct()
+    {
+        return $this->product;
+    }
 }
