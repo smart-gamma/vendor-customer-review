@@ -36,7 +36,7 @@ class CustomerReview
     /**
      * Rating
      *
-	 * @ORM\Column(type="date", nullable=true)
+	 * @ORM\Column(type="datetime", nullable=true)
 	 * @var \DateTime
      */
     private $date;  
@@ -89,6 +89,13 @@ class CustomerReview
      */
     private $product;
 
+    /**
+     * Hash
+     *
+     * @ORM\Column(type="string", length=255)
+     * @var string
+     */
+    private $hash;    
 
     /**
      * Get id
@@ -202,7 +209,8 @@ class CustomerReview
     public function setComment($comment)
     {
         $this->comment = $comment;
-    
+        $this->setHash(md5($comment));
+        
         return $this;
     }
 
@@ -284,5 +292,28 @@ class CustomerReview
     public function getProduct()
     {
         return $this->product;
+    }
+
+    /**
+     * Set hash
+     *
+     * @param string $hash
+     * @return CustomerReview
+     */
+    public function setHash($hash)
+    {
+        $this->hash = $hash;
+    
+        return $this;
+    }
+
+    /**
+     * Get hash
+     *
+     * @return string 
+     */
+    public function getHash()
+    {
+        return $this->hash;
     }
 }
