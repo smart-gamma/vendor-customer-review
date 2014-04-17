@@ -20,16 +20,14 @@ class CustomerReviewController extends Controller
      */    
     public function listAction($limit = 20, $page)
     {        
-        $response['reviews'] = $this->customerReviewManager->getReviews($limit, $page);
-        return $response;
+        return $this->customerReviewManager->getReviews($limit, $page);
     }
     
     /**
      * @Template()
      */
-    public function latestAction($limit = 6)
+    public function latestAction($limit = 5)
     {
-        $response['reviews'] = $this->customerReviewManager->getReviews($limit);
-        return $response;
+        return $this->customerReviewManager->getReviews($limit);
     }    
 }

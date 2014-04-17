@@ -1,0 +1,35 @@
+<div class="pagination pull-right">
+    <ul>
+        {% if paginator.current > 1 %}
+            <li>
+                <a class="prev arrow" href="{{ path("reviews", {'page': paginator.current - 1 }) }}">
+                    <i class="iconVerArr icon-chevron-left"></i>
+                </a>
+            </li>
+        {% endif %}
+
+        {% for i in 1..paginator.pages %}
+
+            {% if paginator.rangestart > 2 and paginator.rangestart == i %}
+                <li><span>...</span></li>
+            {% endif %}
+
+            {% if (i == 1 or i == paginator.pages or i <= paginator.rangeend and i >= paginator.rangestart) %}
+                <li {% if i == paginator.current %}class="active"{% endif %}><a href="{{ path("reviews", {'page': i}) }}">{{ i }}</a></li>
+            {% endif %}
+
+            {% if paginator.rangeend < paginator.pages-1 and paginator.rangeend == i %}
+                <li><span>...</span></li>
+            {% endif %}
+
+        {% endfor %}
+
+        {% if paginator.current < paginator.pages %}
+            <li>
+                <a class="next arrow" href="{{ path("reviews", {'page': paginator.current + 1}) }}">
+                    <i class="iconVerArr icon-chevron-right"></i>
+                </a>
+            </li>
+        {% endif %}
+    </ul>
+</div>

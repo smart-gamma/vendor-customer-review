@@ -11,11 +11,7 @@
     <div id="trustedShopRank"><h2 class="heading ot">{{ review_aggregation_snippet(_reviewAggregation) | raw }}</h2></div>
   {% endif %}
    {% for review in reviews %}
-    <div>
-      <div class="comment-text">
-         <p class="pdate">{{ review.date | date('Y-m-d H:i:s') }}</p>
-         <p>{{ review.comment }}</p>
-      </div>
-    </div>
+        {% include "GammaCustomerReviewBundle:CustomerReview:item/review.html.twig" %}
    {% endfor %}
+   {% include "GammaCustomerReviewBundle:CustomerReview:pagination.html.twig" %}
 {% endblock content %}    
