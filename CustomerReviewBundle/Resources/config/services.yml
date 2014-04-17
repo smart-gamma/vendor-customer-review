@@ -1,7 +1,9 @@
 parameters:
-#    gamma_customer_review.example.class: Gamma\CustomerReview\CustomerReviewBundle\Example
+    gamma_customer_review.manager.class: Gamma\CustomerReview\CustomerReviewBundle\Services\CustomerReviewManager
 
 services:
-#    gamma_customer_review.example:
-#        class: %gamma_customer_review.example.class%
-#        arguments: [@service_id, "plain_value", %parameter%]
+    gamma.customer_review.manager:
+        class: %gamma_customer_review.manager.class%
+        arguments: [@service_container]
+        calls:
+            - [setEm, ["@doctrine.orm.entity_manager"]]

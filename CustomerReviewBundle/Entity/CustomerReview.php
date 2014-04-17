@@ -7,8 +7,9 @@ use Symfony\Component\Validator\Constraints as Assert;
 use \Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="Gamma\CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository")
  * @ORM\Table(name="customer_review", indexes={
+ * @ORM\Index(name="search_idx", columns={"enabled"}),
  * @ORM\Index(name="sort_idx", columns={"date"})
  * })
  */
