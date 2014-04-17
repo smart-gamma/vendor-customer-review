@@ -18,11 +18,18 @@ class CustomerReviewManager extends Service
     /**
      * Get reviews from DB
      * @param int $limit
+     * @param int $page
      * @return CustomerReview[]
      */
-    public function getReviews($limit = 6)
+    public function getReviews($limit = 6, $page = 1)
     {
+        /* @var $repo \Gamma|CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository */ 
         $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview"); 
-        return $repo->getReviews($limit);
+        
+        $count = $repo->getCountForEnabled();
+        $paginator = new \LaMelle\AdminBundle\Helper\Paginate($count, $page, $limit);
+        $offset = $paginator->getOffset();
+
+        return $repo->getReviews($limit, $offset);
     }  
 }

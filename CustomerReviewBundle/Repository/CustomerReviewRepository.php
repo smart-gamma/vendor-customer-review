@@ -24,11 +24,26 @@ class CustomerReviewRepository extends EntityRepository
     {
         $query = $this->createQueryBuilder("p")
             ->where('p.enabled = 1')
-            ->orderBy('p.date', 'ASC') 
+            ->orderBy('p.date', 'DESC') 
             ->setMaxResults($max)
             ->setFirstResult($offset)
             ->getQuery();
         
         return $query->getResult();
     }
+    
+    /**
+     * Returns the number of enabled reviews
+     * @return int
+     */
+    public function getCountForEnabled()
+    {
+        $query = $this->createQueryBuilder("p")
+            ->select("COUNT(p.id)")
+            ->where("p.enabled=1")
+            ->getQuery();
+        $result = $query->getScalarResult();
+
+        return $result[0][1];
+    }    
 }

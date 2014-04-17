@@ -1,0 +1,19 @@
+<div class="reviews-comment">
+  <h3 class="main-header">{{ 'Latest reviews'| trans }}</h3>
+  {% if _reviewAggregation is defined %}
+    <div id="trustedShopRank"><h2 class="heading ot">{{ review_aggregation_snippet(_reviewAggregation) | raw }}</h2></div>
+  {% endif %}
+   {% for review in reviews %}
+    <div xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Review">
+      <div class="comment-text">
+         <span property="v:rating">{{ review.rating }}</span>
+         <span property="v:itemreviewed">LaMelle</span>
+         <span class="pdate" property="v:dtreviewed" content="{{ review.date | date('Y-m-d H:i:s') }}">{{ review.date | date('Y-m-d H:i:s') }}</span>
+         <p property="v:description">{{ review.comment }}</p>
+      </div>
+    </div>
+   {% endfor %}
+  <a class="img-banner bot-link more-info" href="{{ path('reviews') }}">{{ 'More reviews' | trans }}<i class="icon-small icon-s-arrow"></i></a>
+ </div>
+
+     
