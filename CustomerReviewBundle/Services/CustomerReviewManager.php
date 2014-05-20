@@ -31,5 +31,23 @@ class CustomerReviewManager extends Service
         $offset = $paginator->getOffset();
 
         return array("reviews" => $repo->getReviews($limit, $offset), "paginator" => $paginator);
-    }  
+    }
+    
+    /**
+     * Get positive (4,5) reviews from DB
+     * @param int $limit
+     * @param int $page
+     * @return CustomerReview[]
+     */
+    public function getPositiveReviews($limit = 5, $page = 1)
+    {
+        /* @var $repo \Gamma|CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository */ 
+        $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview"); 
+        
+        $count = $repo->getCountForPositiveEnabled();
+        $paginator = new \LaMelle\AdminBundle\Helper\Paginate($count, $page, $limit);
+        $offset = $paginator->getOffset();
+
+        return array("reviews" => $repo->getPositiveReviews($limit, $offset), "paginator" => $paginator);
+    }      
 }

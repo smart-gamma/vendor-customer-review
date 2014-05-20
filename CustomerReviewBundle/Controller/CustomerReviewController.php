@@ -17,7 +17,7 @@ class CustomerReviewController extends Controller
     
     /**
      * @Route("/list/{page}", name="reviews", defaults={"page"=1}, requirements={"page"="\d+"})
-     * @Cache(smaxage="600")
+     * @Cache(smaxage="3600")
      * @Template()
      */    
     public function listAction($limit = 20, $page)
@@ -26,11 +26,20 @@ class CustomerReviewController extends Controller
     }
     
     /**
-     * @Cache(smaxage="600")
+     * @Cache(smaxage="3600")
      * @Template()
      */
     public function latestAction($limit = 5)
     {
         return $this->customerReviewManager->getReviews($limit);
+    }
+    
+    /**
+     * @Cache(smaxage="3600")
+     * @Template("GammaCustomerReviewBundle:CustomerReview:latest.html.twig")
+     */
+    public function latestPositiveAction($limit = 5)
+    {
+        return $this->customerReviewManager->getPositiveReviews($limit);
     }    
 }
