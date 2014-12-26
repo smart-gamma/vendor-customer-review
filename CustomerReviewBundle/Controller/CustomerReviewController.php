@@ -41,5 +41,15 @@ class CustomerReviewController extends Controller
     public function latestPositiveAction($limit = 5)
     {
         return $this->customerReviewManager->getPositiveReviews($limit);
+    }
+
+    /**
+     * Cache(smaxage="3600")
+     * @Template("GammaCustomerReviewBundle:CustomerReview:latestSlider.html.twig")
+     */
+    public function latestPositiveSliderAction($limit = 15)
+    {
+        return $this->customerReviewManager->getPositiveReviews($limit);
     }    
+    
 }

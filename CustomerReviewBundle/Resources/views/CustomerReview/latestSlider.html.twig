@@ -1,0 +1,33 @@
+<div class="slider-wrap review-slider">
+  {% if _reviewAggregation is defined %}
+    <div id="trustedShopRank"><h2 class="heading ot">{{ review_aggregation_snippet(_reviewAggregation) | raw }}</h2></div>
+  {% endif %}
+    <a class="arrow-left" href="#"><i class="icon-arrow-left icon-arrow"></i></a> 
+    <a class="arrow-right" href="#"><i class="icon-arrow-right icon-arrow"></i></a>
+    <div class="swiper-container">
+        <div class="swiper-wrapper"> 
+            {% for review in reviews %}
+                 {% include "GammaCustomerReviewBundle:CustomerReview:item/reviewSlider.html.twig" %}
+            {% endfor %}
+        </div>
+    </div>    
+</div>
+<script>
+        $(document).ready(function() {
+             var mySwiper_choose = new Swiper('.review-slider .swiper-container',{
+               slidesPerView: 1,
+               grabCursor: true,
+               slidesPerGroup: 1,
+             })
+             $('.review-slider .arrow-left').on('click', function(e){
+               e.preventDefault()
+               mySwiper_choose.swipePrev()
+             })
+             $('.review-slider .arrow-right').on('click', function(e){
+               e.preventDefault()
+               mySwiper_choose.swipeNext()
+             })
+         });
+ </script> 
+
+     

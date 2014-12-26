@@ -1,0 +1,20 @@
+<div xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Review" class="swiper-slide">
+    <article class="review-article">
+        <div class="review-headihg group">
+            <div class="star-box group" property="v:rating" content="{{ review.rating }}">
+                {% for i in range(1, review.rating) %}
+                <span class="star-item"></span>
+                {% endfor %}
+            </div>
+            <span property="v:itemreviewed">LaMelle</span>
+            <span class="review-time" property="v:dtreviewed" content="{{ review.date | date('Y-m-d H:i:s') }}">{{ review.date | date('Y-m-d H:i:s') }}</span>
+        </div>
+        <div class="review-content">
+            <p  property="v:description">{{ review.comment }}</p>
+            {% if review.reply %}<blockquote>{{ review.reply }}</blockquote>{% endif %}
+        </div>
+    </article>
+</div>
+
+
+     
