@@ -9,7 +9,8 @@ use \Gamma\CustomerReview\CustomerReviewBundle\Interfaces\ProductInterface;
 /**
  * @ORM\Entity(repositoryClass="Gamma\CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository")
  * @ORM\Table(name="customer_review", indexes={
- * @ORM\Index(name="search_idx", columns={"enabled"}),
+ * @ORM\Index(name="enabled_idx", columns={"enabled"}),
+ * @ORM\Index(name="rating_idx", columns={"enabled", "rating"}),
  * @ORM\Index(name="sort_idx", columns={"date"})
  * })
  */
