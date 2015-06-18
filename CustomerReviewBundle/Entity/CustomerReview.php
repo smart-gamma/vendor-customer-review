@@ -108,6 +108,14 @@ class CustomerReview
     private $hash;    
 
     /**
+     * Review provider
+     *
+     * @ORM\Column(type="string", length=25, nullable=true)
+     * @var string
+     */
+    private $provider; 
+    
+    /**
      * Get id
      *
      * @return int $id
@@ -348,5 +356,28 @@ class CustomerReview
     public function getProductArticle()
     {
         return $this->ProductArticle;
+    }
+
+    /**
+     * Set provider
+     *
+     * @param string $provider
+     * @return CustomerReview
+     */
+    public function setProvider($provider)
+    {
+        $this->provider = $provider;
+
+        return $this;
+    }
+
+    /**
+     * Get provider
+     *
+     * @return string 
+     */
+    public function getProvider()
+    {
+        return $this->provider;
     }
 }
