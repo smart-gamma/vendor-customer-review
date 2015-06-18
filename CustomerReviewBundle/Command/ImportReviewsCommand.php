@@ -77,6 +77,7 @@ class ImportReviewsCommand extends Command
         $customerReview->setDate(new \DateTime($review['date']));
         $customerReview->setComment($review['comment']);
         $customerReview->setReply($review['reply']);
+        $customerReview->setProvider($review['provider']);
         if(isset($review['product_article'])) $customerReview->setProductArticle($review['product_article']); 
         $this->em->persist($customerReview);
         
