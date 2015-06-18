@@ -19,6 +19,9 @@ use Gamma\CustomerReview\CustomerReviewBundle\Entity\CustomerReview;
  */
 class ImportReviewsCommand extends Command
 {
+    private $limit;
+    private $em; 
+
     /**
      * {@inheritDoc}
      */
@@ -28,6 +31,7 @@ class ImportReviewsCommand extends Command
             ->setName('gamma:import:reviews')
             ->setDescription('Import new reviews')
             ->addArgument('provider', InputArgument::OPTIONAL, 'source service provider of reviews', 'gamma.trusted_shop.manager')
+            ->addArgument('limit', InputArgument::OPTIONAL, 'limit to parse reviews')
         ;
     }
 
@@ -35,31 +39,47 @@ class ImportReviewsCommand extends Command
      * {@inheritDoc}
      */
     protected function execute(InputInterface $input, OutputInterface $output)
-    {   
+    {                   
         if($provider = $this->get($input->getArgument('provider'))) {
+            $this->em = $this->getManager();
             $reviews = $provider->getReviews();
+            $this->limit = $input->getArgument('limit');
             $output->writeln("<info>Parsed ".count($reviews)." reviews</info>");
-            $em = $this->getManager();
-            $repo = $em->getRepository('GammaCustomerReviewBundle:CustomerReview');
-            $i = 0;
-            foreach($reviews as $review) {
-                if(!$repo->findByHash(md5($review['comment']))){
-                    /* @var $customerReview Gamma\CustomerReview\CustomerReviewBundle\Entity\CustomerReview */
-                    $customerReview = new CustomerReview();
-                    $customerReview->setRating($review['rating']);
-                    $customerReview->setDate(new \DateTime($review['date']));
-                    $customerReview->setComment($review['comment']);
-                    $customerReview->setReply($review['reply']);
-                    $customerReview->setProvider($review['provider']);
-                    if(isset($review['product_article'])) $customerReview->setProductArticle($review['product_article']);
-                    $em->persist($customerReview);
-                    $i++;
-                }    
-            }
-            $em->flush();
-            $output->writeln("<info>".$i." new reviews added</info>");
+            $amount = $this->importReviews($reviews);
+            $output->writeln("<info>".$amount." new reviews added</info>");
         } else {
             $output->writeln("<error>Unknown reviews provider: ".$input->getArgument('provider')."</error>");
         }
-    }    
+    } 
+    
+    private function importReviews($reviews)
+    {
+       // $em = $this->getManager();
+        $repo = $this->em->getRepository('GammaCustomerReviewBundle:CustomerReview');
+        $i = 0;
+        foreach($reviews as $review) {
+            if(!$repo->findByHash(md5($review['comment']))){
+                if($this->limit && $i >= $this->limit) break;
+                $customerReview = $this->buildCustomerReview($review);
+                $i++;
+            }    
+        }
+        $this->em->flush(); 
+        
+        return $i;
+    }
+    
+    private function buildCustomerReview($review)
+    {
+        /* @var $customerReview Gamma\CustomerReview\CustomerReviewBundle\Entity\CustomerReview */
+        $customerReview = new CustomerReview();
+        $customerReview->setRating($review['rating']);
+        $customerReview->setDate(new \DateTime($review['date']));
+        $customerReview->setComment($review['comment']);
+        $customerReview->setReply($review['reply']);
+        if(isset($review['product_article'])) $customerReview->setProductArticle($review['product_article']); 
+        $this->em->persist($customerReview);
+        
+        return $customerReview;
+    }
  }
