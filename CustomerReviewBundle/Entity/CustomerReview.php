@@ -326,4 +326,27 @@ class CustomerReview
     {
         return $this->hash;
     }
+
+    /**
+     * Set ProductArticle
+     *
+     * @param string $productArticle
+     * @return CustomerReview
+     */
+    public function setProductArticle($productArticle)
+    {
+        $this->ProductArticle = $productArticle;
+
+        return $this;
+    }
+
+    /**
+     * Get ProductArticle
+     *
+     * @return string 
+     */
+    public function getProductArticle()
+    {
+        return $this->ProductArticle;
+    }
 }
