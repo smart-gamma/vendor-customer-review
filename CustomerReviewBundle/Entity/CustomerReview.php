@@ -92,6 +92,14 @@ class CustomerReview
     private $product;
 
     /**
+     * Product article number
+     *
+     * @ORM\Column(type="string", length=100)
+     * @var string
+     */
+    private $ProductArticle;
+    
+    /**
      * Hash
      *
      * @ORM\Column(type="string", length=255)

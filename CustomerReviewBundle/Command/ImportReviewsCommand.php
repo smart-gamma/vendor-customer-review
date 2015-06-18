@@ -13,6 +13,7 @@ use Gamma\CustomerReview\CustomerReviewBundle\Entity\CustomerReview;
 
 /**
  * Import reviews command
+ * Argument "provider": gamma.trusted_shop.manager | gamma.ekomi.manager
  *
  * @author Evgen Kuzmin <jekccs@gmail.com>
  */
@@ -49,6 +50,7 @@ class ImportReviewsCommand extends Command
                     $customerReview->setDate(new \DateTime($review['date']));
                     $customerReview->setComment($review['comment']);
                     $customerReview->setReply($review['reply']);
+                    if(isset($review['product_article'])) $customerReview->setProductArticle($review['product_article']);
                     $em->persist($customerReview);
                     $i++;
                 }    
