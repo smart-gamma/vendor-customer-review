@@ -1,3 +1,4 @@
+{% if reviews | length > 0 %}
 <div class="reviews-comment">
    {% if showHeader | default(1) == 1 %} 
         <h3 class="main-header">{{ 'Latest reviews'| trans }}</h3>
@@ -10,5 +11,5 @@
    {% endfor %}
 </div>
 <a id="listReviewsLink" class="img-banner more-info pull-right" href="{{ path('reviews') }}">{{ 'More reviews' | trans }}<i class="icon-small icon-s-arrow"></i></a>
-
+{% endif %}
      
