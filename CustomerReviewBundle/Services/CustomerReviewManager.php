@@ -3,7 +3,6 @@
 namespace Gamma\CustomerReview\CustomerReviewBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
-
 use Localdev\FrameworkExtraBundle\Services\Service;
 
 /**
@@ -19,35 +18,37 @@ class CustomerReviewManager extends Service
      * Get reviews from DB
      * @param int $limit
      * @param int $page
+     * @param ProductInterface | int $product
      * @return CustomerReview[]
      */
-    public function getReviews($limit = 5, $page = 1)
+    public function getReviews($limit = 5, $page = 1, $product = null)
     {
         /* @var $repo \Gamma|CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository */ 
         $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview"); 
         
-        $count = $repo->getCountForEnabled();
+        $count = $repo->getCountForEnabled($product);
         $paginator = new \LaMelle\AdminBundle\Helper\Paginate($count, $page, $limit);
         $offset = $paginator->getOffset();
 
-        return array("reviews" => $repo->getReviews($limit, $offset), "paginator" => $paginator);
+        return array("reviews" => $repo->getReviews($limit, $offset, $product), "paginator" => $paginator);
     }
     
     /**
      * Get positive (4,5) reviews from DB
      * @param int $limit
      * @param int $page
+     * @param ProductInterface | int $product
      * @return CustomerReview[]
      */
-    public function getPositiveReviews($limit = 5, $page = 1)
+    public function getPositiveReviews($limit = 5, $page = 1, $product = null)
     {
         /* @var $repo \Gamma|CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository */ 
         $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview"); 
         
-        $count = $repo->getCountForPositiveEnabled();
+        $count = $repo->getCountForPositiveEnabled($product);
         $paginator = new \LaMelle\AdminBundle\Helper\Paginate($count, $page, $limit);
         $offset = $paginator->getOffset();
 
-        return array("reviews" => $repo->getPositiveReviews($limit, $offset), "paginator" => $paginator);
+        return array("reviews" => $repo->getPositiveReviews($limit, $offset, $product), "paginator" => $paginator);
     }      
 }

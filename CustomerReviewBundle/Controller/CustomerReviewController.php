@@ -15,41 +15,42 @@ class CustomerReviewController extends Controller
 {
     use \Gamma\CustomerReview\CustomerReviewBundle\Traits\SetCustomerReviewManagerTrait;
     
+    const FIRST_PAGE = 1;
+    
     /**
      * @Route("/list/{page}", name="reviews", defaults={"page"=1}, requirements={"page"="\d+"})
      * @Cache(smaxage="3600")
      * @Template()
      */    
-    public function listAction($limit = 20, $page)
+    public function listAction($limit = 20, $page, $product = null)
     {        
-        return $this->customerReviewManager->getReviews($limit, $page);
+        return $this->customerReviewManager->getReviews($limit, $page, $product);
     }
     
     /**
      * @Cache(smaxage="3600")
      * @Template()
      */
-    public function latestAction($limit = 5)
+    public function latestAction($limit = 5, $product = null)
     {
-        return $this->customerReviewManager->getReviews($limit);
+        return $this->customerReviewManager->getReviews($limit, self::FIRST_PAGE, $product);
     }
     
     /**
      * @Cache(smaxage="3600")
      * @Template("GammaCustomerReviewBundle:CustomerReview:latest.html.twig")
      */
-    public function latestPositiveAction($limit = 5)
+    public function latestPositiveAction($limit = 5, $product = null)
     {
-        return $this->customerReviewManager->getPositiveReviews($limit);
+        return $this->customerReviewManager->getPositiveReviews($limit, self::FIRST_PAGE, $product);
     }
 
     /**
      * Cache(smaxage="3600")
      * @Template("GammaCustomerReviewBundle:CustomerReview:latestSlider.html.twig")
      */
-    public function latestPositiveSliderAction($limit = 15)
+    public function latestPositiveSliderAction($limit = 15, $product = null)
     {
-        return $this->customerReviewManager->getPositiveReviews($limit);
+        return $this->customerReviewManager->getPositiveReviews($limit, self::FIRST_PAGE, $product);
     }    
-    
 }
