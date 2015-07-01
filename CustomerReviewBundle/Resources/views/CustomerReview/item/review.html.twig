@@ -2,7 +2,7 @@
   <div class="comment-text">
      <span property="v:rating" content="{{ review.rating }}">
         {% for i in range(1, review.rating) %}
-        <img src="{{ asset('bundles/gammacustomerreview/images/star.gif') }}">
+        <img class="review-star" src="{{ asset('bundles/gammacustomerreview/images/star.png') }}">
         {% endfor %}
      </span>
      <span property="v:itemreviewed">LaMelle</span>
