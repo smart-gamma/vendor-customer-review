@@ -122,5 +122,28 @@ class CustomerReviewRepository extends EntityRepository
         $result = $query->getScalarResult();
 
         return $result[0][1];
-    }       
+    }
+
+    /**
+     * Returns the number of enabled reviews
+     * 
+     * @param ProductInterface | int
+     * @return int
+     */
+    public function getAverageRate($product = null)
+    {
+        $query = $this->createQueryBuilder("p")
+            ->select("AVG((p.rating) as rating_avg")
+            ->where("p.enabled=1");
+
+        if($product){
+            $query = $this->resolveProductFilter($query, $product);
+        }
+        
+        $query = $query->getQuery();
+        $result = $query->getScalarResult();
+
+        return $result[0]['rating_avg'];
+    }    
+    
 }

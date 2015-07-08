@@ -50,5 +50,28 @@ class CustomerReviewManager extends Service
         $offset = $paginator->getOffset();
 
         return array("reviews" => $repo->getPositiveReviews($limit, $offset, $product), "paginator" => $paginator);
-    }      
+    }
+    
+    /**
+     * @param ProductInterface | int $product
+     * @return int
+     */
+    public function getPositiveReviewsCount($product = null)
+    {
+        /* @var $repo \Gamma|CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository */ 
+        $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview");         
+        return $repo->getCountForPositiveEnabled($product);
+    }
+    
+    /**
+     * @param ProductInterface | int $product
+     * @return int
+     */
+    public function getAverageRate($product = null)
+    {
+        /* @var $repo \Gamma|CustomerReview\CustomerReviewBundle\Repository\CustomerReviewRepository */ 
+        $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview");         
+        $avg = $repo->getAverageRate($product);
+        return number_format($avg, 2);
+    }     
 }
