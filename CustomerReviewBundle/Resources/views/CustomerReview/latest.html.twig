@@ -1,9 +1,9 @@
 {% if reviews | length > 0 %}
 <div class="reviews-comment">
    {% if showHeader | default(1) == 1 %} 
-        <h3 class="main-header">{{ 'Latest reviews'| trans }}</h3>
+        <h2 class="heading">{{ 'Latest reviews'|trans }}</h2>
         {% if _reviewAggregation is defined %}
-         <div id="trustedShopRank"><h2 class="heading ot">{{ review_aggregation_snippet(_reviewAggregation) | raw }}</h2></div>
+         <div id="trustedShopRank"><h3>{{ review_aggregation_snippet(_reviewAggregation)|raw }}</h3></div>
         {% endif %}
    {% endif %}  
    {% for review in reviews %}
