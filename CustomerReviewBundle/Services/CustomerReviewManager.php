@@ -14,6 +14,9 @@ class CustomerReviewManager extends Service
 {   
     use \Gamma\Framework\Traits\DI\SetEntityManagerTrait;
     
+    const REVIEW_PROVIDER = 'all';
+    private $maxRank = 5;
+    
     /**
      * Get reviews from DB
      * @param int $limit
@@ -73,5 +76,22 @@ class CustomerReviewManager extends Service
         $repo = $this->em->getRepository("GammaCustomerReviewBundle:CustomerReview");         
         $avg = $repo->getAverageRate($product);
         return number_format($avg, 2);
-    }     
+    }
+    
+    /**
+     * Load aggregated reviews data
+     *
+     * @return array
+     */
+    public function getReviewAggregation()
+    {
+        $result = array();
+        $result['averageRank'] = $this->getAverageRate();
+        $result['votes'] = $this->getPositiveReviewsCount();
+        $result['maxRank'] = $this->maxRank;
+        $result['shopName'] = 'LaMelle';
+        $result['ReviewProvider'] = self::REVIEW_PROVIDER;
+            
+        return $result;
+    }    
 }
